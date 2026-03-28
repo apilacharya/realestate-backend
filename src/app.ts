@@ -11,7 +11,7 @@ const app = express();
 
 app.use(cors({
   origin: env.NODE_ENV === 'production'
-    ? env.ALLOWED_ORIGINS?.split(',')
+    ? env.ALLOWED_ORIGINS?.split(',').map(o => o.trim()).filter(Boolean)
     : 'http://localhost:5173',
   credentials: true,
 }));
