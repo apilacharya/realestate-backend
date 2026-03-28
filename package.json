@@ -5,13 +5,14 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "tsx watch server.ts",
-    "build": "prisma generate && tsc",
+    "build": "npx prisma generate && npx tsc",
     "start": "node dist/server.js",
-    "migrate": "prisma migrate dev",
-    "migrate:prod": "prisma migrate deploy",
-    "seed": "prisma db seed",
-    "studio": "prisma studio",
-    "generate": "prisma generate"
+    "migrate": "npx prisma migrate dev",
+    "migrate:prod": "npx prisma migrate deploy",
+    "seed": "npx prisma db seed",
+    "studio": "npx prisma studio",
+    "generate": "npx prisma generate",
+    "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^7.0.0",
