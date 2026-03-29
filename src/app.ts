@@ -23,11 +23,9 @@ app.use(
             .filter(Boolean) ?? [];
 
         if (allowed.includes(origin)) {
-          console.log("[CORS] Allowed:", origin);
           return callback(null, true);
         }
 
-        console.warn("[CORS] Rejected:", origin, "| Allowed list:", allowed);
         return callback(new Error("Not allowed by CORS"));
       }
 
