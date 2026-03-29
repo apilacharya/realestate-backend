@@ -9,17 +9,25 @@ import listingsRouter from "./modules/listings/listings.router";
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 app.use(
   cors({
     origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+
       if (env.NODE_ENV === "production") {
         const allowed =
           env.ALLOWED_ORIGINS?.split(",")
             .map((o) => o.trim())
-            .filter(Boolean) || [];
-        if (origin && allowed.includes(origin)) {
+            .filter(Boolean) ?? [];
+
+        if (allowed.includes(origin)) {
+          console.log("[CORS] Allowed:", origin);
           return callback(null, true);
         }
+
+        console.warn("[CORS] Rejected:", origin, "| Allowed list:", allowed);
         return callback(new Error("Not allowed by CORS"));
       }
 
