@@ -49,7 +49,7 @@ pnpm studio
 The seed creates:
 
 - **Admin:** `admin@realestate.com` / `admin123`
-- **User:** `user@realestate.com` / `user123`
+- **User:** `use1r@realestate.com` / `User@123`
 - 3 agents and 35 property listings with varied types, suburbs, and statuses
 
 ### Schema Overview
