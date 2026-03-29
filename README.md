@@ -177,6 +177,19 @@ backend/
       listings/          # Get all (filtered/paginated), get by ID
 ```
 
+## Testing
+
+```bash
+pnpm test
+```
+
+Uses **Vitest** + **supertest** with a mocked Prisma client — no running database needed. Tests cover auth (register, login, me) and listings (pagination, single lookup, 401/404 errors).
+
+```
+src/modules/auth/__tests__/auth.integration.test.ts       # 6 tests
+src/modules/listings/__tests__/listings.integration.test.ts # 4 tests
+```
+
 ## Rate Limiting
 
 100 requests per IP per 15-minute window. Returns `429 Too Many Requests` when exceeded.
