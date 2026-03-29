@@ -65,6 +65,21 @@ async function main() {
   const types = ['house', 'apartment', 'townhouse', 'land'];
   const statuses = ['available', 'available', 'available', 'under_offer', 'sold'];
 
+  const adminNotes = [
+    'VIP Priority - motivated seller, willing to negotiate',
+    'Tenant lease expires March 2027 - early access possible',
+    'Price reduced twice this quarter, owner relocating overseas',
+    'Structural inspection completed - all clear, report on file',
+    'High enquiry volume - schedule open home ASAP',
+    'Vendor prefers settlement within 60 days',
+    'Heritage-listed facade - renovation restrictions apply',
+    'Body corporate fees under review, confirm before listing update',
+    'Off-market interest from two qualified buyers',
+    'Recently appraised 12% above asking - room for negotiation',
+    'Commission agreed at 2.1% - confirmed in writing',
+    'Neighbouring development approved - may impact views long-term',
+  ];
+
   const propertyData = Array.from({ length: 35 }).map((_, i) => ({
     title: `${titles[i % titles.length]}`,
     description: descriptions[i % descriptions.length],
@@ -77,7 +92,7 @@ async function main() {
     address: `${10 + (i * 12)} ${['Skyline Dr', 'Maple Ave', 'Ocean Blvd', 'King St'][i % 4]}`,
     imageUrl: images[i % images.length],
     status: statuses[i % statuses.length] as 'available' | 'under_offer' | 'sold',
-    internalNotes: i % 6 === 0 ? 'VIP Priority - motivated seller' : null,
+    internalNotes: adminNotes[i % adminNotes.length],
     isFeatured: i % 8 === 0,
     agentId: allAgents[i % allAgents.length].id,
   }));
@@ -87,7 +102,18 @@ async function main() {
     skipDuplicates: true,
   });
 
-  console.log('Seed completed successfully');
+  const propertiesWithoutNotes = await prisma.property.findMany({
+    where: { internalNotes: null },
+    select: { id: true },
+  });
+
+  for (let i = 0; i < propertiesWithoutNotes.length; i++) {
+    await prisma.property.update({
+      where: { id: propertiesWithoutNotes[i].id },
+      data: { internalNotes: adminNotes[i % adminNotes.length] },
+    });
+  }
+
 }
 
 main()
