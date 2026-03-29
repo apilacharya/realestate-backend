@@ -49,7 +49,7 @@ pnpm studio
 The seed creates:
 
 - **Admin:** `admin@realestate.com` / `admin123`
-- **User:** `user@realestate.com` / `user123`
+- **User:** `use1r@realestate.com` / `User@123`
 - 3 agents and 35 property listings with varied types, suburbs, and statuses
 
 ### Schema Overview
@@ -124,9 +124,8 @@ curl http://localhost:4000/api/listings/1 -b cookies.txt
 | `baths` | number | Minimum bathrooms |
 | `property_type` | `house` `apartment` `townhouse` `land` | Filter by type |
 | `keyword` | string | Search title, description, suburb, state, address |
-| `status` | `available` `under_offer` `sold` | Filter by status |
 | `page` | number | Page number (default: 1) |
-| `limit` | number | Items per page (default: 10, max: 50) |
+| `limit` | number | Items per page (default: 10) |
 | `sort_by` | `price_asc` `price_desc` `newest` | Sort order (default: newest) |
 
 ### Response Format
